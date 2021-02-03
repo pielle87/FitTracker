@@ -4,11 +4,14 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    frameworks: ['jasmine-given', 'jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
+      require('karma-jasmine-given'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
+      require('karma-jasmine-diff-reporter'),
+      require('karma-mocha-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
@@ -25,20 +28,36 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/FitTracker'),
+      dir: require('path').join(__dirname, './coverage/fittracker'),
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }
+        { type: 'text-summary' },
+        { type: 'lcovonly' },
       ]
     },
-    reporters: ['progress', 'kjhtml'],
+    jasmineDiffReporter: {
+      color: {
+        expectedBg: 'bgRed',
+        expectedWhitespaceBg: 'bgRed',
+        expectedFg: 'black',
+        actualBg: 'bgGreen',
+        actualWhitespaceBg: 'bgGreen',
+        actualFg: 'black',
+      },
+      legacy: true
+    },
+    mochaReporter: {
+      output: 'minimal'
+    },
+    reporters: ['jasmine-diff', 'mocha', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
     singleRun: false,
     restartOnFileChange: true
   });
 };
+
