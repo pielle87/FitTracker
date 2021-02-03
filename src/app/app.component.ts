@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ACTIVITIES } from 'src/assets/mock-activities';
+import { Activity } from './DAOs/activity';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'FitTracker';
+export class AppComponent implements OnInit {
+  activities: Activity[];
+
+  ngOnInit() {
+    this.activities = ACTIVITIES;
+  }
 }

@@ -1,35 +1,35 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app.component'
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+  let componentUnderTest: AppComponent;
+  let actualResult: number;
+
+  Given(() => {
+    TestBed.configureTestingModule({
+      providers: [AppComponent]
+    });
+
+    componentUnderTest = TestBed.inject(AppComponent);
+    actualResult = undefined;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  describe('METHOD: ngOnInit', () => {
 
-  it(`should have as title 'FitTracker'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('FitTracker');
-  });
+    When(() => {
+      componentUnderTest.ngOnInit();
+    });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('FitTracker app is running!');
+    describe('GIVEN initalization THEN populate array', () => {
+      Given(() => {
+        // initalization
+        actualResult = 2
+      });
+      Then('populate array', () => {
+        // populate array
+        expect(componentUnderTest.activities.length).toEqual(actualResult);
+      });
+    });
+
   });
 });
