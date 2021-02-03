@@ -1,5 +1,12 @@
 # FitTracker
 
+Project to track my workouts & similar activities.
+Feats:
+  * add and view activities
+  * firebase DB
+  * Material UI
+  * unit/integration/e2e tests
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.7.
 
 ## Development server
