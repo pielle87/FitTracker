@@ -1,35 +1,25 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component'
 
+// PRE-BUILT TESTS
 describe('AppComponent', () => {
   let componentUnderTest: AppComponent;
-  let actualResult: number;
+  let fixture: ComponentFixture<AppComponent>;
 
-  Given(() => {
-    TestBed.configureTestingModule({
-      providers: [AppComponent]
-    });
-
-    componentUnderTest = TestBed.inject(AppComponent);
-    actualResult = undefined;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ AppComponent ]
+    })
+    .compileComponents();
   });
 
-  describe('METHOD: ngOnInit', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    componentUnderTest = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-    When(() => {
-      componentUnderTest.ngOnInit();
-    });
-
-    describe('GIVEN initalization THEN populate array', () => {
-      Given(() => {
-        // initalization
-        actualResult = 2
-      });
-      Then('populate array', () => {
-        // populate array
-        expect(componentUnderTest.activities.length).toEqual(actualResult);
-      });
-    });
-
+  it('should create', () => {
+    expect(componentUnderTest).toBeTruthy();
   });
 });
