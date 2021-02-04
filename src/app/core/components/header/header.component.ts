@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   user = { name: 'pielle' };
   buttonText = 'LOGIN'
 
-  constructor(private router: Router) { }
+  constructor() { } // private router: Router
 
   ngOnInit(): void {
   }
