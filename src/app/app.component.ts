@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ACTIVITIES } from 'src/assets/mock-activities';
-import { Activity } from './DAOs/activity';
+import { Activity } from './_models/activity';
 
 @Component({
   selector: 'app-root',

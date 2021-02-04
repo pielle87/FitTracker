@@ -1,4 +1,4 @@
-import { Activity } from '../app/DAOs/activity';
+import { Activity } from '../app/_models/activity';
 
 export const ACTIVITIES: Activity[] = [
   {
