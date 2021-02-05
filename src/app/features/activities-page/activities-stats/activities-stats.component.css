@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  border: 2px solid black;
+  margin-bottom: 1rem;
+}
+
+h3, h4 {
+  padding: 0px;
+  margin: 0px;
+  padding-left: 5rem;
+  vertical-align: 0px;
+}
