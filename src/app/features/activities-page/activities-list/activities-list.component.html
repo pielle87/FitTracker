@@ -1,1 +1,3 @@
-<p>activities-list works!</p>
+<ul *ngFor="let activity of activities">
+  <li>{{activity.date | date}} | {{activity.type}} | {{activity.duration}} | {{activity.notes}} | {{activity.feeling}} | {{activity.feelingColor}} | {{activity.link}}</li>
+</ul>
