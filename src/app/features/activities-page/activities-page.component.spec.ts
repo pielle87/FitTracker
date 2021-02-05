@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivitiesService } from 'src/app/core/services/activities.service';
 import { provideAutoSpy, Spy } from 'jasmine-auto-spies';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { ActivitiesPageComponent } from './activities-page.component';
 
@@ -54,7 +55,8 @@ describe('(old)ActivitiesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActivitiesPageComponent ]
+      declarations: [ ActivitiesPageComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   });
