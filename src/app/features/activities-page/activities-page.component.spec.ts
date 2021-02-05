@@ -1,9 +1,55 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivitiesService } from 'src/app/core/services/activities.service';
+import { provideAutoSpy, Spy } from 'jasmine-auto-spies';
 
 import { ActivitiesPageComponent } from './activities-page.component';
 
 describe('ActivitiesPageComponent', () => {
-  let component: ActivitiesPageComponent;
+  let componentUnderTest: ActivitiesPageComponent;
+  let activitiesServiceSpy: Spy<ActivitiesService>;
+  let actualResult: number;
+  
+  Given(() => {
+    TestBed.configureTestingModule({
+      providers: [
+        ActivitiesPageComponent,
+        provideAutoSpy(ActivitiesService),
+      ]
+    });
+
+    componentUnderTest = TestBed.inject(ActivitiesPageComponent);
+    activitiesServiceSpy = TestBed.inject<any>(ActivitiesService);
+    actualResult = undefined;
+  });
+
+  describe('METHOD: ngOnInit', () => {
+
+    When(() => {
+      componentUnderTest.ngOnInit();
+    });
+
+    describe('GIVEN initalization THEN populate array', () => {
+      Given(() => {
+        const fakeData = [{
+          date: new Date(2021, 2, 1),
+          type: 'stretching',
+          duration: 90
+        }]
+        activitiesServiceSpy.getActivities.and.returnValue(fakeData);
+        actualResult = 1
+      });
+      Then('populate array', () => {
+        // populate array
+        expect(actualResult).toEqual(componentUnderTest.activities.length);
+      });
+    });
+  });
+});
+
+
+// PRE-BUILT TESTS
+describe('(old)ActivitiesPageComponent', () => {
+  let componentUnderTest: ActivitiesPageComponent;
   let fixture: ComponentFixture<ActivitiesPageComponent>;
 
   beforeEach(async () => {
@@ -15,11 +61,11 @@ describe('ActivitiesPageComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ActivitiesPageComponent);
-    component = fixture.componentInstance;
+    componentUnderTest = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(componentUnderTest).toBeTruthy();
   });
 });
