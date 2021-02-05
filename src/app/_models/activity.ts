@@ -6,7 +6,7 @@ export interface Activity {
   type: string;
   duration: number;
   notes?: string; // TODO: remove the optional
-  // feelingColor?: EnumColor; TODO
+  feelingColor?: EnumColor; // TODO: remove the optional
   feeling?: string; // TODO: remove the optional
   link?: Url; // TODO: remove the optional
 }
