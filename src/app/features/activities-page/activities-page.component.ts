@@ -10,12 +10,18 @@ import { Activity } from 'src/app/_models/activity';
   styleUrls: ['./activities-page.component.css']
 })
 export class ActivitiesPageComponent implements OnInit {
+  isLoggedIn: boolean = true; // TODO: may need to remove it
   activities: Activity[];
 
   constructor(private activitiesService: ActivitiesService) { }
 
   ngOnInit(): void {
     this.activities = this.activitiesService.getActivities();
+  }
+
+  // TODO: remove this later on
+  simulateLogin(): void {
+    this.isLoggedIn = !this.isLoggedIn;
   }
 
 }
