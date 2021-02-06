@@ -9,6 +9,7 @@ import { HeaderComponent } from './core/components/header/header.component';
 import { ActivitiesFormsComponent } from './features/activities-page/activities-forms/activities-forms.component';
 import { ActivitiesStatsComponent } from './features/activities-page/activities-stats/activities-stats.component';
 import { ActivitiesListComponent } from './features/activities-page/activities-list/activities-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ActivitiesListComponent } from './features/activities-page/activities-l
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
