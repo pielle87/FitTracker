@@ -24,6 +24,10 @@ export class ActivitiesPageComponent implements OnInit {
     this.isLoggedIn = !this.isLoggedIn;
   }
 
+  onNewActivity(event: Activity) {
+    this.activities.push(event);
+    console.log(this.activities.length);
+  }
 }
 
 

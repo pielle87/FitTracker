@@ -1,4 +1,4 @@
-<form [formGroup]="activityForm">
+<form [formGroup]="activityForm" (ngSubmit)="onSubmit()">
   <label>
     Date:
     <input type="text" formControlName="date">
@@ -29,7 +29,7 @@
     Link:
     <input type="text" formControlName="link">
   </label>
+  <button type="submit" [disabled]="!activityForm.valid">Submit</button>
 </form>
-<button type="submit">Submit</button>
 
 <div>{{activityForm.valid}}</div> <!-- TODO: remove -->
