@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FeelingColors } from 'src/app/_models/activity';
 
 @Component({
   selector: 'app-activities-forms',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./activities-forms.component.css']
 })
 export class ActivitiesFormsComponent implements OnInit {
+  feelingColors = FeelingColors;
 
-  constructor() { }
+  activityForm: FormGroup = this.fb.group({
+    date: [''],
+    type: ['', Validators.required],
+    duration: [''],
+    notes: [''],
+    feelingColor: [''],
+    feeling: [''],
+    link: [''],
+  });
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
-
 }

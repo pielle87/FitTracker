@@ -1,1 +1,35 @@
-<p>activities-forms works!</p>
+<form [formGroup]="activityForm">
+  <label>
+    Date:
+    <input type="text" formControlName="date">
+  </label>
+  <label>
+    Type:
+    <input type="text" formControlName="type" required>
+  </label>
+  <label>
+    Duration:
+    <input type="text" formControlName="duration">
+  </label>
+  <label>
+    Notes:
+    <input type="text" formControlName="notes">
+  </label>
+  <label>
+    FeelingColor:
+    <select formControlName="feelingColor">
+      <option *ngFor="let color of feelingColors | keyvalue">{{color.key}}</option>
+    </select>
+  </label>
+  <label>
+    Feeling:
+    <input type="text" formControlName="feeling">
+  </label>
+  <label>
+    Link:
+    <input type="text" formControlName="link">
+  </label>
+</form>
+<button type="submit">Submit</button>
+
+<div>{{activityForm.valid}}</div> <!-- TODO: remove -->
