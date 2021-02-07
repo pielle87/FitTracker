@@ -13,7 +13,7 @@ export class ActivitiesFormsComponent implements OnInit {
   activityForm: FormGroup = this.fb.group({
     date: [''],
     type: ['', Validators.required],
-    duration: [''],
+    duration: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]],
     notes: [''],
     feelingColor: [''],
     feeling: [''],
