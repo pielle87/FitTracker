@@ -1,8 +1,38 @@
 :host {
   display: block;
+  box-sizing: border-box;
   border: 2px solid black;
+  margin: 0;
+  padding: 0;
 }
 
-ul {
-  list-style-type: none;
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.1em;
+}
+
+.details {
+  order: 2;
+  flex-grow: 1;
+  flex: 1 1 auto;
+}
+
+.edit {
+  background: blue;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 0.3rem;
+  order: 1;
+}
+
+.del {
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  order: 3;
 }

@@ -1,3 +1,12 @@
-<ul *ngFor="let activity of activities">
-  <li>{{activity.date | date}} | {{activity.type}} | {{activity.duration}} | {{activity.notes}} | {{activity.feeling}} | {{activity.feelingColor}} | {{activity.link}}</li>
-</ul>
+<div *ngFor="let activity of activities" class="container">
+  <button class="edit">edit</button>
+  <span class="details">
+    {{ activity.date | date }} |
+    {{ activity.type }} |
+    {{ activity.duration }} |
+    {{ activity.notes }} |
+    <span [ngStyle]="{'background': activity.feelingColor}">{{ activity.feeling }}</span> |
+    <a href="{{ activity.link }}">{{ activity.link }}</a>
+  </span>
+  <button class="del">x</button>
+</div>
