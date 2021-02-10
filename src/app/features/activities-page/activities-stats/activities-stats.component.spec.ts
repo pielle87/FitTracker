@@ -6,7 +6,7 @@ import { ActivitiesStatsComponent } from './activities-stats.component';
 describe('ActivitiesStatsComponent', () => {
   let componentUnderTest: ActivitiesStatsComponent;
   let actualResult: any;
-  
+
   Given(() => {
     TestBed.configureTestingModule({
       providers: [ActivitiesStatsComponent]
@@ -14,10 +14,10 @@ describe('ActivitiesStatsComponent', () => {
     componentUnderTest = TestBed.inject(ActivitiesStatsComponent);
     actualResult = undefined;
   });
-  
+
   describe('METHOD: ngOnInit', () => {
     let expectedResult: number;
-    
+
     When(() => {
       componentUnderTest.ngOnInit();
     });
@@ -73,11 +73,13 @@ describe('ActivitiesStatsComponent', () => {
 function createFakeActivities(): Activity[] {
   return [
     {
+      id: 1,
       date: new Date(2021, 2, 1),
       type: 'stretching',
       duration: 90,
     },
     {
+      id: 2,
       date: new Date(2021, 2, 2),
       type: 'running',
       duration: 50,

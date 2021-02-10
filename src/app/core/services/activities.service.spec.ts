@@ -21,13 +21,14 @@ describe('ActivitiesService', () => {
   describe('METHOD: getActivities', () => {
 
     When(() => {
+      // TODO: this should be configured to return a fake list and not the real one
       actualResult = serviceUnderTest.getActivities();
     });
 
     describe('GIVEN activities are queried THEN list is instantiated', () => {
       Given(() => {
         // activities are queried THEN list is instantiated
-        expectedResult = 2;
+        expectedResult = 4;
       });
       Then('instantiate list of activities',() => {
         // instantiate list of activities
