@@ -1,5 +1,3 @@
-import { Url } from "url";
-
 export interface Activity {
   id?: number // TODO: remove the optional. I may need to call it with activity: Omit<Activity, 'id'> or a Partial<>
   date?: Date; // TODO: remove the optional
@@ -8,7 +6,7 @@ export interface Activity {
   notes?: string; // TODO: remove the optional
   feelingColor?: FeelingColors; // TODO: remove the optional
   feeling?: string; // TODO: remove the optional
-  link?: Url; // TODO: remove the optional
+  link?: URL; // TODO: remove the optional
 }
 
 export enum FeelingColors {
