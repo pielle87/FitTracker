@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { appRoutesName } from 'src/app/app-routing.module';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -8,16 +10,19 @@ import { appRoutesName } from 'src/app/app-routing.module';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn = false;
-  user = { name: 'pielle' };
-  buttonText = 'LOGIN'
+  isLogged$: BehaviorSubject<boolean>;
+  username: string = null;
+  buttonText: string = 'LOGIN'
+  user$: BehaviorSubject<string>
 
-  constructor() { } // private router: Router
+  constructor(private loginService: LoginService) { } // private router: Router
 
   ngOnInit(): void {
+    this.user$ = this.loginService.user$;
+    this.isLogged$ = this.loginService.isLogged$;
   }
 
-  // TODO
+  // TODO: it would be nice to only have one button in the header
   // onClick() {
   //   if (this.isLoggedIn) {
   //     this.buttonText = 'LOGOUT';
