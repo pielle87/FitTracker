@@ -1,5 +1,5 @@
-<h1>Welcome, {{ user.name }}</h1>
-<button [routerLink]="['/login']" routerLinkActive="router-link-active">LOGIN</button>
-<button [routerLink]="['/activities']" routerLinkActive="router-link-active">ACTIVITIES</button>
-<!-- TODO: <button (click)="onClick()">{{buttonText}}</button> -->
+<h1>Welcome, {{ user$ | async }}</h1>
+<button [routerLink]="'/login'" routerLinkActive="link-active">LOGIN</button>
+<button [routerLink]="'/activities'" routerLinkActive="link-active">ACTIVITIES</button>
+<!-- TODO: <button (click)="onClick()">{{buttonText}}</button> WOULD THIS EVEN WORK WITH THE ROUTER? I'D NEED A PARAM-->
 <hr>
