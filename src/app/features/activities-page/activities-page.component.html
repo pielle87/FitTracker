@@ -1,10 +1,6 @@
-<button (click)="simulateLogin()">SimulateLogin: {{ isLoggedIn }}</button>
-<hr />
-<!-- TODO: remove above -->
-
 <app-activities-forms
-  *ngIf="isLoggedIn"
+  *ngIf="isLogged"
   (newActivity)="onNewActivity($event)"
 ></app-activities-forms>
 <app-activities-stats [activities]="activities"></app-activities-stats>
-<app-activities-list [activities]="activities"></app-activities-list>
+<app-activities-list [activities]="activities" [isLogged]="isLogged"></app-activities-list>

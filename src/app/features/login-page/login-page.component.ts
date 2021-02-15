@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/core/services/login.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { LoginService } from 'src/app/core/services/login.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
-  isLogged$: BehaviorSubject<boolean>;
+  isLogged$: Observable<boolean>;
 
   loginForm: FormGroup = new FormGroup({
     // TODO: add validators
@@ -27,14 +27,10 @@ export class LoginPageComponent implements OnInit {
     const { username, password } = this.loginForm.value;
     this.loginService.login(username, password);
     this.loginForm.reset();
-    // TODO: remove log
-    console.log('LoginPageComponent',this.loginService.user$.getValue(), this.loginService.isLogged$.getValue())
   }
 
   onLogout() {
     this.loginService.logout();
-    // TODO: remove log
-    console.log('LoginPageComponent', this.loginService.user$.getValue(), this.loginService.isLogged$.getValue())
   }
 
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { shareReplay } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,16 @@ export class LoginService {
   private _user$: BehaviorSubject<string> = new BehaviorSubject<string>('Guest');
   private _isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  get user$(): BehaviorSubject<string> {
-    return this._user$;
+  get user$(): Observable<string> {
+    return this._user$
+    .asObservable()
+    .pipe(shareReplay({refCount: true, bufferSize: 1}));
   }
 
-  get isLogged$(): BehaviorSubject<boolean> {
-    return this._isLogged$;
+  get isLogged$(): Observable<boolean> {
+    return this._isLogged$
+    .asObservable()
+    .pipe(shareReplay({refCount: true, bufferSize: 1}));
   }
 
   constructor() { }

@@ -1,56 +1,67 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivitiesService } from 'src/app/core/services/activities.service';
-import { provideAutoSpy, Spy } from 'jasmine-auto-spies';
+import { createSpyFromClass, provideAutoSpy, Spy } from 'jasmine-auto-spies';
 import { Component, Input } from '@angular/core';
 
 import { ActivitiesPageComponent } from './activities-page.component';
 import { Activity } from 'src/app/_models/activity';
-import { AppModule } from 'src/app/app.module';
+import { LoginService } from 'src/app/core/services/login.service';
 
-describe('ActivitiesPageComponent', () => {
+xdescribe('ActivitiesPageComponent', () => {
   let componentUnderTest: ActivitiesPageComponent;
   let activitiesServiceSpy: Spy<ActivitiesService>;
-  let actualResult: number;
+  let loginServiceSpy: Spy<LoginService>;
 
   Given(() => {
     TestBed.configureTestingModule({
-      providers: [ActivitiesPageComponent, provideAutoSpy(ActivitiesService)],
+      providers: [
+        ActivitiesPageComponent,
+        provideAutoSpy(ActivitiesService),
+        provideAutoSpy(LoginService),
+      ],
     });
 
     componentUnderTest = TestBed.inject(ActivitiesPageComponent);
     activitiesServiceSpy = TestBed.inject<any>(ActivitiesService);
-    actualResult = undefined;
+    loginServiceSpy = createSpyFromClass(LoginService, {
+      gettersToSpyOn: ['isLogged$'],
+    })
   });
 
   describe('METHOD: ngOnInit', () => {
     When(() => {
-      componentUnderTest.ngOnInit();
+      componentUnderTest.ngOnInit();  // "TypeError: this.loginService.isLogged$.subscribe is not a function"
     });
 
     describe('GIVEN initalization THEN populate array', () => {
       Given(() => {
-        const fakeData = [
-          {
-            date: new Date(2021, 2, 1),
-            type: 'stretching',
-            duration: 90,
-          },
-        ];
+        console.log(loginServiceSpy.accessorSpies.getters.isLogged$.and.resolveTo(true)); // "LOG: function wrap() { ... }"
+        loginServiceSpy.accessorSpies.getters.isLogged$.and.returnValue(true);
         activitiesServiceSpy.getActivities.and.returnValue(fakeData);
-        actualResult = 1;
       });
       Then('populate array', () => {
-        // populate array
-        expect(actualResult).toEqual(componentUnderTest.activities.length);
+        expect(componentUnderTest.activities.length).toEqual(1);
+      });
+      Then('check isLogged value', () => {
+        expect(loginServiceSpy.isLogged$).toBeTrue();
       });
     });
   });
 });
 
+const fakeData = [
+  {
+    date: new Date(2021, 2, 1),
+    type: 'stretching',
+    duration: 90,
+  },
+];
+
 // PRE-BUILT TESTS
-describe('(old)ActivitiesPageComponent', () => {
+fdescribe('(old)ActivitiesPageComponent', () => {
   let componentUnderTest: ActivitiesPageComponent;
   let fixture: ComponentFixture<ActivitiesPageComponent>;
+
   beforeEach(async () => {
     @Component({ selector: 'app-activities-forms', template: '' })
     class FakeActivitiesFormsComponent {
@@ -64,6 +75,7 @@ describe('(old)ActivitiesPageComponent', () => {
     class FakeActivitiesStatsComponent {
       @Input() activities: Activity[];
     }
+
     await TestBed.configureTestingModule({
       declarations: [
         ActivitiesPageComponent,

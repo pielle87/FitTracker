@@ -8,6 +8,7 @@ import { Activity } from 'src/app/_models/activity';
 })
 export class ActivitiesListComponent implements OnInit {
   @Input() activities: Activity[];
+  @Input() isLogged: boolean;
 
   constructor() { }
 

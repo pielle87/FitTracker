@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
-import { appRoutesName } from 'src/app/app-routing.module';
+import { Observable } from 'rxjs';
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -10,10 +8,10 @@ import { LoginService } from '../../services/login.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLogged$: BehaviorSubject<boolean>;
+  user$: Observable<string>
+  isLogged$: Observable<boolean>;
   username: string = null;
   buttonText: string = 'LOGIN'
-  user$: BehaviorSubject<string>
 
   constructor(private loginService: LoginService) { } // private router: Router
 
@@ -24,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   // TODO: it would be nice to only have one button in the header
   // onClick() {
-  //   if (this.isLoggedIn) {
+  //   if (this.isLogged) {
   //     this.buttonText = 'LOGOUT';
   //   } else {
   //     const currentUrl = this.router.url.substr(1);

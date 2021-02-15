@@ -1,5 +1,5 @@
 <div *ngFor="let activity of activities" class="container">
-  <button class="edit">edit</button>
+  <button class="edit" *ngIf="isLogged">edit</button>
   <span class="details">
     {{ activity.date | date }} |
     {{ activity.type }} |
@@ -8,5 +8,5 @@
     <span [ngStyle]="{'background': activity.feelingColor}">{{ activity.feeling }}</span> |
     <a href="{{ activity.link }}">{{ activity.link }}</a>
   </span>
-  <button class="del">x</button>
+  <button class="del" *ngIf="isLogged">x</button>
 </div>
