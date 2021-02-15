@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Activity } from 'src/app/_models/activity';
 
 @Component({
@@ -9,10 +9,15 @@ import { Activity } from 'src/app/_models/activity';
 export class ActivitiesListComponent implements OnInit {
   @Input() activities: Activity[];
   @Input() isLogged: boolean;
+  @Output() idToDelete = new EventEmitter<number>()
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDelete(activity: Activity) {
+    this.idToDelete.emit(activity.id)
   }
 
 }

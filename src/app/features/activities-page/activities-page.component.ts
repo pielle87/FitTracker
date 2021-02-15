@@ -26,6 +26,12 @@ export class ActivitiesPageComponent implements OnInit {
     this.activities.push(event);
     console.log(this.activities.length);
   }
+
+  onDeleteActivity(id: number) {
+    console.log('ActivitiesPageComponent: ', 'delete ', id);
+
+    this.activities = this.activitiesService.deleteActivity(id);
+  }
 }
 
 

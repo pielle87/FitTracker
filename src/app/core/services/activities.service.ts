@@ -13,4 +13,10 @@ export class ActivitiesService {
   getActivities(): Activity[] {
     return ACTIVITIES;
   }
+
+  deleteActivity(id: number) {
+    console.log('ActivitiesService: ', 'delete');
+    // TODO: server side deletion
+    return ACTIVITIES.filter(activity => activity.id !== id);
+  }
 }
