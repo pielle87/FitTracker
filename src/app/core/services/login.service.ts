@@ -7,7 +7,8 @@ import { shareReplay } from "rxjs/operators";
 })
 export class LoginService {
   private _user$: BehaviorSubject<string> = new BehaviorSubject<string>('Guest');
-  private _isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+   // TODO: set to false!!! this is only for development purposes
+  private _isLogged$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   get user$(): Observable<string> {
     return this._user$
