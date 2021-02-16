@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ActivitiesService } from 'src/app/core/services/activities.service';
 import { LoginService } from 'src/app/core/services/login.service';
 import { Activity } from 'src/app/_models/activity';
@@ -9,17 +10,15 @@ import { Activity } from 'src/app/_models/activity';
   styleUrls: ['./activities-page.component.css'],
 })
 export class ActivitiesPageComponent implements OnInit {
-  isLogged: boolean = false;
   activities: Activity[];
 
   constructor(
-    private loginService: LoginService,
+    public loginService: LoginService,
     private activitiesService: ActivitiesService
   ) {}
 
   ngOnInit(): void {
     this.activities = this.activitiesService.getActivities();
-    this.loginService.isLogged$.subscribe(value => this.isLogged = value);
   }
 
   onNewActivity(event: Omit<Activity, 'id'>) {
