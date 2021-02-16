@@ -22,9 +22,8 @@ export class ActivitiesPageComponent implements OnInit {
     this.loginService.isLogged$.subscribe(value => this.isLogged = value);
   }
 
-  onNewActivity(event: Activity) {
-    this.activities.push(event);
-    console.log(this.activities.length);
+  onNewActivity(event: Omit<Activity, 'id'>) {
+    this.activities = this.activitiesService.addActivity(event);
   }
 
   onDeleteActivity(id: number) {
