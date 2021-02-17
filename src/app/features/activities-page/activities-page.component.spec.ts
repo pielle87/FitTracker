@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
 import { ActivitiesPageComponent } from './activities-page.component';
 import { Activity } from 'src/app/_models/activity';
 
-fdescribe('ActivitiesPageComponent', () => {
+describe('ActivitiesPageComponent', () => {
   let componentUnderTest: ActivitiesPageComponent;
   let activitiesServiceSpy: Spy<ActivitiesService>;
 
@@ -63,7 +63,7 @@ const fakeData: Activity[] = [
 ];
 
 // PRE-BUILT TESTS
-xdescribe('(old)ActivitiesPageComponent', () => {
+describe('(old)ActivitiesPageComponent', () => {
   let componentUnderTest: ActivitiesPageComponent;
   let fixture: ComponentFixture<ActivitiesPageComponent>;
 
@@ -75,6 +75,7 @@ xdescribe('(old)ActivitiesPageComponent', () => {
     @Component({ selector: 'app-activities-list', template: '' })
     class FakeActivitiesListComponent {
       @Input() activities: Activity[];
+      @Input() isLogged: boolean;
     }
     @Component({ selector: 'app-activities-stats', template: '' })
     class FakeActivitiesStatsComponent {
