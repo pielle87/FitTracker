@@ -1,5 +1,5 @@
 export interface Activity {
-  id: number // TODO: remove the optional. I may need to call it with activity: Omit<Activity, 'id'> or a Partial<>
+  id: number
   date?: Date; // TODO: remove the optional
   type: string;
   duration: number;
