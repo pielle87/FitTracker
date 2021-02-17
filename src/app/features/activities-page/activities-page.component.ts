@@ -26,9 +26,10 @@ export class ActivitiesPageComponent implements OnInit {
   }
 
   onDeleteActivity(id: number) {
-    console.log('ActivitiesPageComponent: ', 'delete ', id);
-
-    this.activities = this.activitiesService.deleteActivity(id);
+    if(confirm("Delete: are you sure?")) {
+      console.log('ActivitiesPageComponent: ', 'delete ', id);
+      this.activities = this.activitiesService.deleteActivity(id);
+    }
   }
 }
 
