@@ -12,9 +12,8 @@ export class ActivitiesService {
   constructor() {}
 
   getActivities(): Activity[] {
-    // get from Server an OBSERVABLE
+    // preparaton: get Observable from Server
     of(ACTIVITIES).subscribe((act) => (this.activities = act));
-
     return this.activities;
   }
 
