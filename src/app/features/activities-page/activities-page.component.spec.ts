@@ -12,10 +12,7 @@ describe('ActivitiesPageComponent', () => {
 
   Given(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ActivitiesPageComponent,
-        provideAutoSpy(ActivitiesService),
-      ],
+      providers: [ActivitiesPageComponent, provideAutoSpy(ActivitiesService)],
     });
 
     componentUnderTest = TestBed.inject(ActivitiesPageComponent);
@@ -29,10 +26,10 @@ describe('ActivitiesPageComponent', () => {
 
     describe('GIVEN initalization THEN populate array', () => {
       Given(() => {
-        activitiesServiceSpy.getActivities.and.returnValue(fakeData);
+        activitiesServiceSpy.getActivities.and.returnValue(fakeActivities);
       });
       Then('populate array', () => {
-        expect(componentUnderTest.activities).toEqual(fakeData);
+        expect(componentUnderTest.activities).toEqual(fakeActivities);
       });
     });
 
@@ -51,16 +48,68 @@ describe('ActivitiesPageComponent', () => {
     //   });
     // });
   });
+
+  describe('METHOD: onNewActivity', () => {
+    When(() => {
+      componentUnderTest.onNewActivity(fakePartialActivity);
+    });
+
+    Then('Add activity to the list', () => {
+      expect(activitiesServiceSpy.addActivity).toHaveBeenCalledWith(
+        fakePartialActivity
+      );
+    });
+  });
+
+  describe('METHOD: onDeleteActivity', () => {
+    When(() => {
+      componentUnderTest.onDeleteActivity(fakeId);
+    });
+
+    describe('GIVEN confirm window is accepted', () => {
+      Given(() => {
+        spyOn(window, 'confirm').and.returnValue(true);
+      });
+      Then('delete activity from the list', () => {
+        expect(activitiesServiceSpy.deleteActivity).toHaveBeenCalledWith(
+          fakeId
+        );
+      });
+    });
+
+    describe('GIVEN confirm window is declined', () => {
+      Given(() => {
+        spyOn(window, 'confirm').and.returnValue(false);
+      });
+      Then('delete activity from the list', () => {
+        expect(activitiesServiceSpy.deleteActivity).not.toHaveBeenCalled();
+      });
+    });
+  });
 });
 
-const fakeData: Activity[] = [
+const fakeActivities: Activity[] = [
   {
     id: 1,
     date: new Date(2021, 2, 1),
     type: 'stretching',
     duration: 90,
   },
+  {
+    id: 2,
+    date: new Date(2021, 2, 2),
+    type: 'running',
+    duration: 35,
+  },
 ];
+
+const fakePartialActivity: Omit<Activity, 'id'> = {
+  date: new Date(2021, 2, 2),
+  type: 'running',
+  duration: 30,
+};
+
+const fakeId: number = 1;
 
 // PRE-BUILT TESTS
 describe('(old)ActivitiesPageComponent', () => {
