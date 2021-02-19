@@ -50,7 +50,7 @@ module.exports = function (config) {
     mochaReporter: {
       output: 'minimal'
     },
-    reporters: ['jasmine-diff', 'mocha', 'kjhtml'],
+    reporters: ['jasmine-diff', 'mocha', /*'kjhtml'*/], // removing 'kjhtml' fixes the double logs
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
