@@ -20,6 +20,7 @@ describe('ActivitiesPageComponent', () => {
   });
 
   describe('INIT', () => {
+    let fakeActivities: Activity[] = createFakeActivities()
     When(() => {
       componentUnderTest.ngOnInit();
     });
@@ -50,6 +51,7 @@ describe('ActivitiesPageComponent', () => {
   });
 
   describe('METHOD: onNewActivity', () => {
+    let fakePartialActivity: Omit<Activity, 'id'> = createFakePartialActivity();
     When(() => {
       componentUnderTest.onNewActivity(fakePartialActivity);
     });
@@ -62,6 +64,7 @@ describe('ActivitiesPageComponent', () => {
   });
 
   describe('METHOD: onDeleteActivity', () => {
+    let fakeId: number = createFakeId();
     When(() => {
       componentUnderTest.onDeleteActivity(fakeId);
     });
@@ -87,29 +90,6 @@ describe('ActivitiesPageComponent', () => {
     });
   });
 });
-
-const fakeActivities: Activity[] = [
-  {
-    id: 1,
-    date: new Date(2021, 2, 1),
-    type: 'stretching',
-    duration: 90,
-  },
-  {
-    id: 2,
-    date: new Date(2021, 2, 2),
-    type: 'running',
-    duration: 35,
-  },
-];
-
-const fakePartialActivity: Omit<Activity, 'id'> = {
-  date: new Date(2021, 2, 2),
-  type: 'running',
-  duration: 30,
-};
-
-const fakeId: number = 1;
 
 // PRE-BUILT TESTS
 describe('(old)ActivitiesPageComponent', () => {
@@ -151,3 +131,32 @@ describe('(old)ActivitiesPageComponent', () => {
     expect(componentUnderTest).toBeTruthy();
   });
 });
+
+function createFakeActivities(): Activity[] {
+  return [
+    {
+      id: 1,
+      date: new Date(2021, 2, 1),
+      type: 'stretching',
+      duration: 90,
+    },
+    {
+      id: 2,
+      date: new Date(2021, 2, 2),
+      type: 'running',
+      duration: 35,
+    },
+  ]
+}
+
+function createFakePartialActivity(): Omit<Activity, 'id'> {
+  return {
+    date: new Date(2021, 2, 2),
+    type: 'running',
+    duration: 30,
+  }
+}
+
+function createFakeId() {
+  return 1;
+}

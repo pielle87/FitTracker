@@ -34,34 +34,36 @@ describe('ActivitiesService', () => {
   });
 
   describe('METHOD: addActivity', () => {
+    let fakePartialActivity: Omit<Activity, 'id'> = createFakePartialActivity();
     When(() => {
       actualResult = serviceUnderTest.addActivity(fakePartialActivity);
     });
     describe('GIVEN new activity', () => {
       Given(() => {
-        // pass a clone in order not to "pass by reference"
-        serviceUnderTest.activities = [...fakeActivities];
+        // pass a new array in order not to "pass by reference"
+        serviceUnderTest.activities = createFakeActivities();
       });
       Then('Activity is added',() => {
         let randomizedId = serviceUnderTest.activities[serviceUnderTest.activities.length-1].id
         let addedActivity: Activity = { id: randomizedId, ...fakePartialActivity };
-        expectedResult = [...fakeActivities, addedActivity];
+        expectedResult = [...createFakeActivities(), addedActivity];
         expect(actualResult).toEqual(expectedResult);
       });
     });
   });
 
   describe('METHOD: deleteActivity', () => {
+    let idToDelete: number = createIdToDelete();
     When(() => {
       actualResult = serviceUnderTest.deleteActivity(idToDelete);
     });
     describe('GIVEN id to delete', () => {
 
       Given(() => {
-        serviceUnderTest.activities = [...fakeActivities];
+        serviceUnderTest.activities = createFakeActivities();
       });
       Then('Activity is deleted',() => {
-        expectedResult = fakeActivities.filter(
+        expectedResult = createFakeActivities().filter(
           (activity) => activity.id !== idToDelete
         )
         expect(actualResult).toEqual(expectedResult);
@@ -70,35 +72,28 @@ describe('ActivitiesService', () => {
   });
 });
 
-const fakeActivities: Activity[] = [
-  {
-    id: 1,
-    date: new Date(2021, 2, 1),
-    type: 'stretching',
-    duration: 90,
-  },
-  {
-    id: 2,
-    date: new Date(2021, 2, 2),
-    type: 'running',
-    duration: 35,
-  },
-  {
-    id: 3,
-    date: new Date(2021, 2, 3),
-    type: 'climbing',
-    duration: 35,
-  },
-];
-
-const fakePartialActivity: Omit<Activity, 'id'> = {
-  date: new Date(2021, 2, 4),
-  type: 'swimming',
-  duration: 30,
-};
-
-const idToDelete: number = 2;
-
+function createFakeActivities(): Activity[] {
+  return [
+    {
+      id: 1,
+      date: new Date(2021, 2, 1),
+      type: 'stretching',
+      duration: 90,
+    },
+    {
+      id: 2,
+      date: new Date(2021, 2, 2),
+      type: 'running',
+      duration: 35,
+    },
+    {
+      id: 3,
+      date: new Date(2021, 2, 3),
+      type: 'climbing',
+      duration: 35,
+    },
+  ];
+}
 
 // PRE-BUILT TESTS
 describe('(old)ActivitiesService', () => {
@@ -113,3 +108,15 @@ describe('(old)ActivitiesService', () => {
     expect(service).toBeTruthy();
   });
 });
+
+function createFakePartialActivity(): Omit<Activity, 'id'> {
+  return {
+    date: new Date(2021, 2, 4),
+    type: 'swimming',
+    duration: 30,
+  };
+}
+
+function createIdToDelete(): number {
+  return 2;
+}
