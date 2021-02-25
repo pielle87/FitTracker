@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/core/services/login.service';
 import { UserCredentials } from 'src/app/_models/user-credentials.type';
 
@@ -9,24 +8,18 @@ import { UserCredentials } from 'src/app/_models/user-credentials.type';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent implements OnInit {
-  isLogged$: Observable<boolean>;
+export class LoginPageComponent {
 
   loginForm: FormGroup = new FormGroup({
-    // TODO: add validators
+    // TODO: add validators and TEST them
     username: new FormControl(''),
     password: new FormControl('')
   });
 
-  constructor(private loginService: LoginService){ }
-
-  ngOnInit(): void {
-    this.isLogged$ = this.loginService.isLogged$;
-  }
+  constructor(public loginService: LoginService){ }
 
   onSubmit() {
-    const credentials: UserCredentials = this.loginForm.value;
-    this.loginService.login(credentials);
+    this.loginService.login(this.loginForm.value as UserCredentials);
     this.loginForm.reset();
   }
 
