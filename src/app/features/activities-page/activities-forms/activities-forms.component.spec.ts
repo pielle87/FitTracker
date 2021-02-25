@@ -6,26 +6,21 @@ import { ActivitiesFormsComponent } from './activities-forms.component';
 
 import { FeelingColors, Activity } from 'src/app/_models/activity';
 
-
-// USING SPIES ETC.
 describe('ActivitiesFormsComponent', () => {
   let componentUnderTest: ActivitiesFormsComponent;
   let newActivitySpy: ObserverSpy<any>;
 
   Given(() => {
     TestBed.configureTestingModule({
-      providers: [
-        ActivitiesFormsComponent,
-        FormBuilder
-      ]
+      providers: [ActivitiesFormsComponent, FormBuilder],
     });
 
     componentUnderTest = TestBed.inject(ActivitiesFormsComponent);
   });
 
-  describe('Output newActivity', () => {
+  describe('METHOD onSubmit: output newActivity', () => {
     When(() => {
-      componentUnderTest.onSubmit()
+      componentUnderTest.onSubmit();
     });
 
     describe('GIVEN form is filled correctly', () => {
@@ -33,7 +28,7 @@ describe('ActivitiesFormsComponent', () => {
         newActivitySpy = subscribeSpyTo(componentUnderTest.newActivity);
         componentUnderTest.activityForm.setValue(createFakeFormData());
       });
-      Then('form is valid and newActivity is emitted',() => {
+      Then('form is valid and newActivity is emitted', () => {
         expect(componentUnderTest.activityForm.valid).toBeTrue();
         expect(newActivitySpy.getFirstValue()).toEqual(createFakeFormData());
       });
@@ -53,37 +48,39 @@ describe('ActivitiesFormsComponent', () => {
     describe("GIVEN form has no 'type' (required)", () => {
       Given(() => {
         componentUnderTest.activityForm.setValue(createFakeFormData());
-        componentUnderTest.activityForm.patchValue( {type: null} );
+        componentUnderTest.activityForm.patchValue({ type: null });
       });
       Then('form is invalid', () => {
         expect(componentUnderTest.activityForm.valid).toBeFalse();
       });
     });
 
-    describe('GIVEN form only has no \'duration\' (required) field', () => {
+    describe("GIVEN form only has no 'duration' (required) field", () => {
       Given(() => {
         componentUnderTest.activityForm.setValue(createFakeFormData());
-        componentUnderTest.activityForm.patchValue( {duration: null} );
+        componentUnderTest.activityForm.patchValue({ duration: null });
       });
       Then('form is invalid', () => {
         expect(componentUnderTest.activityForm.valid).toBeFalse();
       });
     });
 
-    describe('GIVEN form only has invalid \'duration\' field (0)', () => {
+    describe("GIVEN form only has invalid 'duration' field (0)", () => {
       Given(() => {
         componentUnderTest.activityForm.setValue(createFakeFormData());
-        componentUnderTest.activityForm.patchValue( {duration: 0} );
+        componentUnderTest.activityForm.patchValue({ duration: 0 });
       });
       Then('form is invalid', () => {
         expect(componentUnderTest.activityForm.valid).toBeFalse();
       });
     });
 
-    describe('GIVEN form only has invalid \'duration\' field (string)', () => {
+    describe("GIVEN form only has invalid 'duration' field (string)", () => {
       Given(() => {
         componentUnderTest.activityForm.setValue(createFakeFormData());
-        componentUnderTest.activityForm.patchValue( {duration: 'fakeDuration'} );
+        componentUnderTest.activityForm.patchValue({
+          duration: 'fakeDuration',
+        });
       });
       Then('form is invalid', () => {
         expect(componentUnderTest.activityForm.valid).toBeFalse();
@@ -91,9 +88,6 @@ describe('ActivitiesFormsComponent', () => {
     });
   });
 });
-
-
-
 
 // PRE-BUILT TESTS
 describe('ActivitiesFormsComponent', () => {
@@ -103,10 +97,9 @@ describe('ActivitiesFormsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule ],
-      declarations: [ ActivitiesFormsComponent ]
-    })
-    .compileComponents();
+      imports: [ReactiveFormsModule],
+      declarations: [ActivitiesFormsComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -122,7 +115,9 @@ describe('ActivitiesFormsComponent', () => {
 
   it('should Output an Activity', () => {
     // I found this approach in the Angular doc (https://angular.io/guide/testing-components-basics#component-class-testing)
-    component.newActivity.subscribe((act: Activity) => expect(act).toEqual(component.activityForm.value));
+    component.newActivity.subscribe((act: Activity) =>
+      expect(act).toEqual(component.activityForm.value)
+    );
     component.onSubmit();
   });
 });
