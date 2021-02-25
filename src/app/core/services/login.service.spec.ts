@@ -2,6 +2,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { Spy, provideAutoSpy } from 'jasmine-auto-spies';
+import { UserCredentials } from 'src/app/_models/user-credentials.type';
 import { LoginService } from './login.service';
 
 describe('LoginService', () => {
@@ -25,31 +26,31 @@ describe('LoginService', () => {
   });
 
   describe('METHOD: login', () => {
-    let credentials;
+    let fakeCredentials: UserCredentials;
     When(() => {
-      serviceUnderTest.login(credentials.username, credentials.password);
+      serviceUnderTest.login(fakeCredentials);
     });
 
     describe('GIVEN login attempt', () => {
       Given(() => {
-        credentials = { username: 'pippo', password: '1234'}
+        fakeCredentials = { username: 'pippo', password: '1234'}
       });
       Then('user is logged in',() => {
-        serviceUnderTest.user$.subscribe(username => expect(username).toEqual(credentials.username));
+        serviceUnderTest.user$.subscribe(cred => expect(cred).toEqual(fakeCredentials.username));
         serviceUnderTest.isLogged$.subscribe(isLogged => expect(isLogged).toBeTrue());
       });
     });
   });
 
   describe('METHOD: login without username', () => {
-    let credentials;
+    let fakeCredentials: UserCredentials;
     When(() => {
-      serviceUnderTest.login(credentials.username, credentials.password);
+      serviceUnderTest.login(fakeCredentials);
     });
 
     describe('GIVEN login attempt without username', () => {
       Given(() => {
-        credentials = { username: '', password: '1234'}
+        fakeCredentials = { username: '', password: '1234'}
       });
       Then('user is logged in',() => {
         // user 'pielle' is logged in when no user is provided

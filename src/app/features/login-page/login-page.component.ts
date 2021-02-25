@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/core/services/login.service';
+import { UserCredentials } from 'src/app/_models/user-credentials.type';
 
 @Component({
   selector: 'app-login-page',
@@ -24,8 +25,8 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit() {
-    const { username, password } = this.loginForm.value;
-    this.loginService.login(username, password);
+    const credentials: UserCredentials = this.loginForm.value;
+    this.loginService.login(credentials);
     this.loginForm.reset();
   }
 

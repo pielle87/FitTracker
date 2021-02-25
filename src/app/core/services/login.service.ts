@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { shareReplay } from "rxjs/operators";
+import { UserCredentials } from 'src/app/_models/user-credentials.type';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,11 @@ export class LoginService {
 
   constructor() { }
 
-  login(username: string, password: string) {
+  login(credentials: UserCredentials) {
     // TODO: create a real login function
     // TODO: do I need an error if username and/or password is empty?
     // theoretically that should never happen because the forms have validators
-    username ? this._user$.next(username) : this._user$.next('pielle');
+    credentials.username ? this._user$.next(credentials.username) : this._user$.next('pielle');
     this._isLogged$.next(true);
   }
 
