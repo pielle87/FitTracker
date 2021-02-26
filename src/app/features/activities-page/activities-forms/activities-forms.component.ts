@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Activity, FeelingColors } from 'src/app/_models/activity';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Activity, FeelingColors} from 'src/app/_models/activity';
 
 @Component({
   selector: 'app-activities-forms',
@@ -9,7 +9,7 @@ import { Activity, FeelingColors } from 'src/app/_models/activity';
 })
 export class ActivitiesFormsComponent implements OnChanges {
   @Input() active: Activity;
-  @Output() emitActivity = new EventEmitter<Omit<Activity, 'id'>>();
+  @Output() emitActivity = new EventEmitter<Activity>();
   feelingColors = FeelingColors;
 
   activityForm: FormGroup = this.fb.group({
@@ -22,7 +22,8 @@ export class ActivitiesFormsComponent implements OnChanges {
     link: [''],
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const activityToEdit: Omit<Activity, 'id'> = changes.active.currentValue as Omit<Activity, 'id'>;
@@ -34,8 +35,8 @@ export class ActivitiesFormsComponent implements OnChanges {
     }
   }
 
-  onSubmit() {
-    this.emitActivity.emit(this.activityForm.value);
+  onSubmit(item: Activity): void {
+    this.emitActivity.emit(item);
   }
 }
 
