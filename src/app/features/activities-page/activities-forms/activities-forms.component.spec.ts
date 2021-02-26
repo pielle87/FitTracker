@@ -124,14 +124,14 @@ describe('ActivitiesFormsComponent', () => {
 
 function createFakeFormData(): Partial<Activity> {
   return {
-      date: new Date(2021, 2, 1),
-      type: 'stretching',
-      duration: 90,
-      feeling: 'good',
-      feelingColor: FeelingColors.green,
-      notes: 'nothing',
-      link: new URL("https://www.google.com"),
-    };
+    date: new Date(2021, 2, 1),
+    type: 'stretching',
+    duration: 90,
+    feeling: 'good',
+    feelingColor: FeelingColors.green,
+    notes: 'nothing',
+    link: new URL('https://www.google.com'),
+  };
 }
 
 function createFakeFormRequiredData(): Partial<Activity> {
@@ -143,5 +143,5 @@ function createFakeFormRequiredData(): Partial<Activity> {
     feelingColor: null,
     notes: null,
     link: null,
-    };
+  };
 }
