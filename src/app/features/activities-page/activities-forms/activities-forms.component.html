@@ -1,4 +1,4 @@
-<form [formGroup]="activityForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="activityForm" (ngSubmit)="onSubmit(activityForm.value)">
   <label>
     Date:
     <input type="text" formControlName="date">

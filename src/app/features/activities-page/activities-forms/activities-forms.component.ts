@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Activity, FeelingColors } from 'src/app/_models/activity';
+import {Component, EventEmitter, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Activity, FeelingColors} from 'src/app/_models/activity';
 
 @Component({
   selector: 'app-activities-forms',
@@ -8,7 +8,7 @@ import { Activity, FeelingColors } from 'src/app/_models/activity';
   styleUrls: ['./activities-forms.component.css']
 })
 export class ActivitiesFormsComponent {
-  @Output() newActivity = new EventEmitter<Omit<Activity, 'id'>>();
+  @Output() newActivity = new EventEmitter<Activity>();
   feelingColors = FeelingColors;
 
   activityForm: FormGroup = this.fb.group({
@@ -21,9 +21,10 @@ export class ActivitiesFormsComponent {
     link: [''],
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) {
+  }
 
-  onSubmit() {
-    this.newActivity.emit(this.activityForm.value);
+  onSubmit(item: Activity): void {
+    this.newActivity.emit(item);
   }
 }
