@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Activity } from 'src/app/_models/activity';
-import { ACTIVITIES } from 'src/assets/mock-activities';
+import {Injectable} from '@angular/core';
+import {of} from 'rxjs';
+import {Activity} from 'src/app/_models/activity';
+import {ACTIVITIES} from 'src/assets/mock-activities';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,8 @@ import { ACTIVITIES } from 'src/assets/mock-activities';
 export class ActivitiesService {
   activities: Activity[]; // TODO: OBSERVABLE???
 
-  constructor() {}
+  constructor() {
+  }
 
   getActivities(): Activity[] {
     // preparaton: get Observable from Server
@@ -17,10 +18,10 @@ export class ActivitiesService {
     return this.activities;
   }
 
-  addActivity(activity: Omit<Activity, 'id'>): Activity[] {
+  addActivity(activity: Activity): Activity[] {
     console.log('ActivitiesService: ', activity);
 
-    this.activities.push({ id: Math.random(), ...activity });
+    this.activities.push({id: Math.random(), ...activity});
     // TODO: server side addition
     return this.activities;
   }
@@ -31,7 +32,7 @@ export class ActivitiesService {
     throw new Error('Method not implemented: ActivitiesService.editActivity');
   }
 
-  deleteActivity(id: number) {
+  deleteActivity(id: number): Activity[] {
     console.log('ActivitiesService: ', 'delete id: ', id);
     // TODO: server side deletion
     return (this.activities = this.activities.filter(
