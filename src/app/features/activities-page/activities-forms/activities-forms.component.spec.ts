@@ -39,22 +39,37 @@ describe('ActivitiesFormsComponent', () => {
   describe('METHOD onSubmit: output newActivity', () => {
     let newActivitySpy: ObserverSpy<any>;
     When(() => {
-      componentUnderTest.onSubmit();
+      componentUnderTest.onSubmit(componentUnderTest.activityForm.value);
     });
 
-    describe('GIVEN form is filled correctly', () => {
+    describe('GIVEN form is filled correctly and submitted', () => {
       Given(() => {
         newActivitySpy = subscribeSpyTo(componentUnderTest.emitActivity);
         componentUnderTest.activityForm.setValue(createFakeFormData());
       });
-      Then('form is valid and newActivity is emitted', () => {
-        expect(componentUnderTest.activityForm.valid).toBeTrue();
+      Then('newActivity is emitted', () => {
         expect(newActivitySpy.getFirstValue()).toEqual(createFakeFormData());
+      });
+      Then('Form is reset', () => {
+        expect(componentUnderTest.activityForm.value).toEqual(createFakeEmptyForm());
+      });
+      Then('Form is invalid', () => {
+        expect(componentUnderTest.activityForm.valid).toBeFalse();
       });
     });
   });
 
+  // TODO: form is empty, form is completely filled in
   describe('Form validators', () => {
+    describe('GIVEN form is completely filled', () => {
+      Given(() => {
+        componentUnderTest.activityForm.setValue(createFakeFormData());
+      });
+      Then('form is valid', () => {
+        expect(componentUnderTest.activityForm.valid).toBeTrue();
+      });
+    });
+
     describe('GIVEN form only has REQUIRED fields', () => {
       Given(() => {
         componentUnderTest.activityForm.setValue(createFakeFormRequiredData());
@@ -105,6 +120,15 @@ describe('ActivitiesFormsComponent', () => {
         expect(componentUnderTest.activityForm.valid).toBeFalse();
       });
     });
+
+    describe("GIVEN form is empty", () => {
+      Given(() => {
+        componentUnderTest.activityForm.setValue(createFakeEmptyForm());
+      });
+      Then('form is invalid', () => {
+        expect(componentUnderTest.activityForm.valid).toBeFalse();
+      });
+    });
   });
 });
 
@@ -138,7 +162,7 @@ describe('ActivitiesFormsComponent', () => {
     component.emitActivity.subscribe((act: Activity) =>
       expect(act).toEqual(component.activityForm.value)
     );
-    component.onSubmit();
+    component.onSubmit(component.activityForm.value);
   });
 });
 
@@ -166,15 +190,15 @@ function createFakeFormRequiredData(): Partial<Activity> {
   };
 }
 
-function createFakeActivity(): Activity {
+function createFakeEmptyForm(): Partial<Activity> {
   return {
-    id: 1,
-    date: new Date(2021, 2, 2),
-    type: 'swimming',
-    duration: 30,
-    feeling: 'bad',
-    feelingColor: FeelingColors.red,
-    notes: 'something',
-    link: new URL('https://www.youtube.com'),
+    date: null,
+    type: null,
+    duration: null,
+    feeling: null,
+    feelingColor: null,
+    notes: null,
+    link: null,
   };
 }
+

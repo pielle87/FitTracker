@@ -23,18 +23,21 @@ export class ActivitiesPageComponent implements OnInit {
   }
 
   onReceivedActivity(event: Activity): void {
+    // TODO: test all cases
+    // TODO: refactor to remove refences to selectedActivity and activities (also refactor service?)
     this.activities = this.selectedActivity ?
       this.activitiesService.editActivity({...this.selectedActivity, ...event}) :
       this.activitiesService.addActivity(event);
+
+    if (this.selectedActivity) {
+      this.selectedActivity = null;
+    }
   }
 
   onDeleteActivity(id: number): void {
     if (confirm('Delete: are you sure?')) {
       console.log('ActivitiesPageComponent: ', 'delete ', id);
       this.activities = this.activitiesService.deleteActivity(id);
-      if (this.selectedActivity.id === id) {
-        // TODO: here I should make sure that the form is reset (otherwise: click to edit, then delete: id still exists?)
-      }
     }
   }
 

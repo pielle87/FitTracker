@@ -10,6 +10,7 @@ import {Activity, FeelingColors} from 'src/app/_models/activity';
 export class ActivitiesFormsComponent implements OnChanges {
   @Input() active: Activity;
   @Output() emitActivity = new EventEmitter<Activity>();
+  //TODO: @Output reset --> use it on a 'X' as well as to reset the selected in parent after submitting (modify code also in submit function)
   feelingColors = FeelingColors;
 
   activityForm: FormGroup = this.fb.group({
@@ -26,17 +27,17 @@ export class ActivitiesFormsComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const activityToEdit: Omit<Activity, 'id'> = changes.active.currentValue as Omit<Activity, 'id'>;
+    const activityToEdit: Activity = changes.active.currentValue;
 
     if (activityToEdit) {
-      // const { date, type, duration, notes, feelingColor, feeling, link } = activityToEdit;
-      // this.activityForm.setValue({ date, type, duration, notes, feelingColor, feeling, link });
-      this.activityForm.setValue(activityToEdit);
+      const { date, type, duration, notes, feelingColor, feeling, link } = activityToEdit;
+      this.activityForm.setValue({ date, type, duration, notes, feelingColor, feeling, link });
     }
   }
 
   onSubmit(item: Activity): void {
     this.emitActivity.emit(item);
+    this.activityForm.reset();
   }
 }
 

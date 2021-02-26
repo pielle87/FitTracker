@@ -27,9 +27,10 @@ export class ActivitiesService {
   }
 
   editActivity(activity: Activity): Activity[] {
+    const index = this.activities.findIndex(d => d.id === activity.id);
+    this.activities[index] = activity;
     console.log('ActivitiesService: ', activity);
-
-    throw new Error('Method not implemented: ActivitiesService.editActivity');
+    return this.activities;
   }
 
   deleteActivity(id: number): Activity[] {

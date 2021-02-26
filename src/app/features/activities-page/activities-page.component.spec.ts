@@ -50,15 +50,15 @@ describe('ActivitiesPageComponent', () => {
     // });
   });
 
-  describe('METHOD: onNewActivity', () => {
-    let fakePartialActivity: Omit<Activity, 'id'> = createFakePartialActivity();
+  describe('METHOD: onReceivedActivity', () => {
+    let fakeActivity: Activity = createFakeActivity();
     When(() => {
-      componentUnderTest.onNewActivity(fakePartialActivity);
+      componentUnderTest.onReceivedActivity(fakeActivity);
     });
 
     Then('Add activity to the list', () => {
       expect(activitiesServiceSpy.addActivity).toHaveBeenCalledWith(
-        fakePartialActivity
+        fakeActivity
       );
     });
   });
@@ -101,7 +101,7 @@ describe('ActivitiesPageComponent', () => {
         fakeActivity = createFakeActivity();
       });
       Then('Activity to edit is set',() => {
-         expect(componentUnderTest.activityToEdit).toEqual(fakeActivity);
+         expect(componentUnderTest.selectedActivity).toEqual(fakeActivity);
       });
     });
   });
@@ -163,14 +163,6 @@ function createFakeActivities(): Activity[] {
       duration: 35,
     },
   ]
-}
-
-function createFakePartialActivity(): Omit<Activity, 'id'> {
-  return {
-    date: new Date(2021, 2, 2),
-    type: 'running',
-    duration: 30,
-  }
 }
 
 function createFakeActivity(): Activity {

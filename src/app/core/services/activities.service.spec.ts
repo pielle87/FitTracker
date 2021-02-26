@@ -34,9 +34,9 @@ describe('ActivitiesService', () => {
   });
 
   describe('METHOD: addActivity', () => {
-    let fakePartialActivity: Omit<Activity, 'id'> = createFakePartialActivity();
+    let fakeActivity: Activity = createFakeActivity();
     When(() => {
-      actualResult = serviceUnderTest.addActivity(fakePartialActivity);
+      actualResult = serviceUnderTest.addActivity(fakeActivity);
     });
     describe('GIVEN new activity', () => {
       Given(() => {
@@ -45,7 +45,7 @@ describe('ActivitiesService', () => {
       });
       Then('Activity is added',() => {
         let randomizedId = serviceUnderTest.activities[serviceUnderTest.activities.length-1].id
-        let addedActivity: Activity = { id: randomizedId, ...fakePartialActivity };
+        let addedActivity: Activity = { id: randomizedId, ...fakeActivity };
         expectedResult = [...createFakeActivities(), addedActivity];
         expect(actualResult).toEqual(expectedResult);
       });
@@ -109,8 +109,9 @@ describe('(old)ActivitiesService', () => {
   });
 });
 
-function createFakePartialActivity(): Omit<Activity, 'id'> {
+function createFakeActivity(): Activity {
   return {
+    id: 1,
     date: new Date(2021, 2, 4),
     type: 'swimming',
     duration: 30,
