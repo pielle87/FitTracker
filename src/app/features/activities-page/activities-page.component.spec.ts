@@ -89,6 +89,22 @@ describe('ActivitiesPageComponent', () => {
       });
     });
   });
+
+  describe('METHOD: onEditActivity', () => {
+    let fakeActivity;
+    When(() => {
+       componentUnderTest.onEditActivity(fakeActivity);
+    });
+
+    describe('GIVEN activity to edit is received', () => {
+      Given(() => {
+        fakeActivity = createFakeActivity();
+      });
+      Then('Activity to edit is set',() => {
+         expect(componentUnderTest.activityToEdit).toEqual(fakeActivity);
+      });
+    });
+  });
 });
 
 // PRE-BUILT TESTS
@@ -154,6 +170,15 @@ function createFakePartialActivity(): Omit<Activity, 'id'> {
     date: new Date(2021, 2, 2),
     type: 'running',
     duration: 30,
+  }
+}
+
+function createFakeActivity(): Activity {
+  return {
+    id: 3,
+    date: new Date(2021, 2, 3),
+    type: 'swimming',
+    duration: 45,
   }
 }
 

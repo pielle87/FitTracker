@@ -11,6 +11,7 @@ import { Activity } from 'src/app/_models/activity';
 })
 export class ActivitiesPageComponent implements OnInit {
   activities: Activity[];
+  selectedActivity: Activity;
 
   constructor(
     public loginService: LoginService,
@@ -21,15 +22,24 @@ export class ActivitiesPageComponent implements OnInit {
     this.activities = this.activitiesService.getActivities();
   }
 
-  onNewActivity(event: Omit<Activity, 'id'>) {
-    this.activities = this.activitiesService.addActivity(event);
+  onReceivedActivity(event: Omit<Activity, 'id'>): void {
+    this.activities = this.selectedActivity ?
+      this.activitiesService.editActivity({ id: this.selectedActivity.id, ...event}) :
+      this.activitiesService.addActivity(event);
   }
 
-  onDeleteActivity(id: number) {
-    if(confirm("Delete: are you sure?")) {
+  onDeleteActivity(id: number): void {
+    if (confirm("Delete: are you sure?")) {
       console.log('ActivitiesPageComponent: ', 'delete ', id);
       this.activities = this.activitiesService.deleteActivity(id);
+      if (this.selectedActivity.id === id) {
+    // TODO: here I should make sure that the form is reset (otherwise: click to edit, then delete: id still exists?)
+      }
     }
+  }
+
+  onEditActivity(activity: Activity): void {
+    this.selectedActivity = activity;
   }
 }
 

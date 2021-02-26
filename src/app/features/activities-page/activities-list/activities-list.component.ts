@@ -10,6 +10,7 @@ export class ActivitiesListComponent implements OnInit {
   @Input() activities: Activity[];
   @Input() isLogged: boolean;
   @Output() idToDelete = new EventEmitter<number>()
+  @Output() activityToEdit = new EventEmitter<Activity>()
 
   constructor() { }
 
@@ -18,6 +19,10 @@ export class ActivitiesListComponent implements OnInit {
 
   onDelete(activity: Activity) {
     this.idToDelete.emit(activity.id)
+  }
+
+  onEdit(activity: Activity) {
+    this.activityToEdit.emit(activity);
   }
 
 }

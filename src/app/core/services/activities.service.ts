@@ -25,8 +25,14 @@ export class ActivitiesService {
     return this.activities;
   }
 
+  editActivity(activity: Activity): Activity[] {
+    console.log('ActivitiesService: ', activity);
+
+    throw new Error('Method not implemented: ActivitiesService.editActivity');
+  }
+
   deleteActivity(id: number) {
-    console.log('ActivitiesService: ', 'delete');
+    console.log('ActivitiesService: ', 'delete id: ', id);
     // TODO: server side deletion
     return (this.activities = this.activities.filter(
       (activity) => activity.id !== id

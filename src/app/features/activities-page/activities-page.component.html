@@ -1,6 +1,12 @@
 <app-activities-forms
   *ngIf="loginService.isLogged$ | async"
-  (newActivity)="onNewActivity($event)"
+  (emitActivity)="onReceivedActivity($event)"
+  [active]="selectedActivity"
 ></app-activities-forms>
 <app-activities-stats [activities]="activities"></app-activities-stats>
-<app-activities-list [activities]="activities" [isLogged]="loginService.isLogged$ | async" (idToDelete)="onDeleteActivity($event)"></app-activities-list>
+<app-activities-list
+  [activities]="activities"
+  [isLogged]="loginService.isLogged$ | async"
+  (idToDelete)="onDeleteActivity($event)"
+  (activityToEdit)="onEditActivity($event)"
+></app-activities-list>
