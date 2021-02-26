@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Activity, FeelingColors } from 'src/app/_models/activity';
 
@@ -7,7 +7,7 @@ import { Activity, FeelingColors } from 'src/app/_models/activity';
   templateUrl: './activities-forms.component.html',
   styleUrls: ['./activities-forms.component.css']
 })
-export class ActivitiesFormsComponent implements OnInit {
+export class ActivitiesFormsComponent {
   @Output() newActivity = new EventEmitter<Omit<Activity, 'id'>>();
   feelingColors = FeelingColors;
 
@@ -22,9 +22,6 @@ export class ActivitiesFormsComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder) { }
-
-  ngOnInit(): void {
-  }
 
   onSubmit() {
     this.newActivity.emit(this.activityForm.value);
