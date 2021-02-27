@@ -36,19 +36,19 @@ describe('ActivitiesFormsComponent', () => {
   //   });
   // });
 
-  describe('METHOD onSubmit: output newActivity', () => {
-    let newActivitySpy: ObserverSpy<any>;
+  describe('METHOD onSubmit: output emitActivity', () => {
+    let emitActivitySpy: ObserverSpy<any>;
     When(() => {
       componentUnderTest.onSubmit(componentUnderTest.activityForm.value);
     });
 
     describe('GIVEN form is filled correctly and submitted', () => {
       Given(() => {
-        newActivitySpy = subscribeSpyTo(componentUnderTest.emitActivity);
+        emitActivitySpy = subscribeSpyTo(componentUnderTest.emitActivity);
         componentUnderTest.activityForm.setValue(createFakeFormData());
       });
       Then('newActivity is emitted', () => {
-        expect(newActivitySpy.getFirstValue()).toEqual(createFakeFormData());
+        expect(emitActivitySpy.getFirstValue()).toEqual(createFakeFormData());
       });
       Then('Form is reset', () => {
         expect(componentUnderTest.activityForm.value).toEqual(createFakeEmptyForm());
