@@ -137,6 +137,7 @@ describe('ActivitiesFormsComponent', () => {
   let component: ActivitiesFormsComponent;
   let fixture: ComponentFixture<ActivitiesFormsComponent>;
   let formBuilder: FormBuilder;
+  let fakeActivity: Activity;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -150,6 +151,7 @@ describe('ActivitiesFormsComponent', () => {
     fixture = TestBed.createComponent(ActivitiesFormsComponent);
     component = fixture.componentInstance;
     component.activityForm = formBuilder.group(createFakeFormData());
+    fakeActivity = component.activityForm.value;
     fixture.detectChanges();
   });
 
@@ -160,9 +162,9 @@ describe('ActivitiesFormsComponent', () => {
   it('should Output an Activity', () => {
     // I found this approach in the Angular doc (https://angular.io/guide/testing-components-basics#component-class-testing)
     component.emitActivity.subscribe((act: Activity) =>
-      expect(act).toEqual(component.activityForm.value)
+      expect(act).toEqual(fakeActivity)
     );
-    component.onSubmit(component.activityForm.value);
+    component.onSubmit(fakeActivity);
   });
 });
 
