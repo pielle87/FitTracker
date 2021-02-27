@@ -44,6 +44,10 @@ export class ActivitiesPageComponent implements OnInit {
   onEditActivity(activity: Activity): void {
     this.selectedActivity = activity;
   }
+
+  onResetForm(): void {
+    this.selectedActivity = null;
+  }
 }
 
 

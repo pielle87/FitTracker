@@ -1,7 +1,8 @@
 <app-activities-forms
   *ngIf="loginService.isLogged$ | async"
-  (emitActivity)="onReceivedActivity($event)"
   [active]="selectedActivity"
+  (emitActivity)="onReceivedActivity($event)"
+  (resetForm)="onResetForm()"
 ></app-activities-forms>
 <app-activities-stats [activities]="activities"></app-activities-stats>
 <app-activities-list
