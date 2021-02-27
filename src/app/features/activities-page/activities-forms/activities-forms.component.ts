@@ -35,9 +35,9 @@ export class ActivitiesFormsComponent implements OnChanges {
     }
   }
 
-  onSubmit(item: Activity): void {
+  onSubmit(activity: Activity): void {
     this.activityForm.reset();
-    this.emitActivity.emit(item);
+    this.emitActivity.emit(activity);
   }
 
   onReset(): void {
