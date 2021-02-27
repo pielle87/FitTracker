@@ -41,7 +41,6 @@ export class ActivitiesFormsComponent implements OnChanges {
   }
 
   onReset(): void {
-    this.activityForm.reset();
     this.resetForm.emit();
   }
 }
