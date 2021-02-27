@@ -59,7 +59,6 @@ describe('ActivitiesFormsComponent', () => {
     });
   });
 
-  // TODO: form is empty, form is completely filled in
   describe('Form validators', () => {
     describe('GIVEN form is completely filled', () => {
       Given(() => {
