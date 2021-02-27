@@ -73,10 +73,13 @@ describe('ActivitiesPageComponent', () => {
       Given(() => {
         spyOn(window, 'confirm').and.returnValue(true);
       });
-      Then('delete activity from the list', () => {
+      Then('Delete activity from the list', () => {
         expect(activitiesServiceSpy.deleteActivity).toHaveBeenCalledWith(
           fakeId
         );
+      });
+      Then('Selected activity is reset', () => {
+        expect(componentUnderTest.selectedActivity).toEqual(null);
       });
     });
 
@@ -84,7 +87,7 @@ describe('ActivitiesPageComponent', () => {
       Given(() => {
         spyOn(window, 'confirm').and.returnValue(false);
       });
-      Then('delete activity from the list', () => {
+      Then('Delete activity from the list', () => {
         expect(activitiesServiceSpy.deleteActivity).not.toHaveBeenCalled();
       });
     });
