@@ -18,4 +18,6 @@ export class ActivitiesStatsComponent implements OnInit {
     this.avgDuration = this.totalDuration / this.activities.length;
   }
 
+  // TODO: ngOnchanges (stats are not refreshed)
+
 }
