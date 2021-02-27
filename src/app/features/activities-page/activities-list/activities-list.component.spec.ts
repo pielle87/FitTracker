@@ -8,6 +8,8 @@ import { Activity, FeelingColors } from 'src/app/_models/activity';
 describe('ActivitiesListComponent', () => {
   let componentUnderTest: ActivitiesListComponent;
   let idToDeleteSpy: ObserverSpy<any>;
+  // let activityToEditSpy: ObserverSpy<any>; // NOTE: used this instead: https://angular.io/guide/testing-components-scenarios#clicking
+  let fakeActivity: Activity
 
   Given(() => {
     TestBed.configureTestingModule({
@@ -15,12 +17,10 @@ describe('ActivitiesListComponent', () => {
     });
 
     componentUnderTest = TestBed.inject(ActivitiesListComponent);
-
+    fakeActivity = createFakeActivity();
   });
 
   describe('METHOD onDelete: output idToDelete', () => {
-    let fakeActivity: Activity = createFakeActivity();
-
     When(() => {
       componentUnderTest.onDelete(fakeActivity);
     });
@@ -29,8 +29,24 @@ describe('ActivitiesListComponent', () => {
       Given(() => {
         idToDeleteSpy = subscribeSpyTo(componentUnderTest.idToDelete);
       });
-      Then('Delete the activity', () => {
+      Then('Emit the id of the activity to delete', () => {
         expect(idToDeleteSpy.getFirstValue()).toEqual(fakeActivity.id);
+      });
+    });
+  });
+
+  describe('METHOD onEdit: output activityToEdit', () => {
+    let expectedActivity;
+    When(() => {
+       componentUnderTest.onEdit(fakeActivity)
+    });
+
+    describe('GIVEN an activity to edit', () => {
+      Given(() => {
+        componentUnderTest.activityToEdit.subscribe(act => expectedActivity = act);
+      });
+      Then('Emit the activity to edit',() => {
+        expect(fakeActivity).toEqual(expectedActivity);
       });
     });
   });

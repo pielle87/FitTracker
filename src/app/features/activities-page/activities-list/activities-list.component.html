@@ -1,5 +1,5 @@
 <div *ngFor="let activity of activities" class="container">
-  <button class="edit" *ngIf="isLogged">edit</button>
+  <button class="edit" *ngIf="isLogged" (click)="onEdit(activity)">edit</button>
   <span class="details">
     {{ activity.date | date }} |
     {{ activity.type }} |
