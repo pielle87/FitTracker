@@ -19,7 +19,7 @@ export class ActivitiesService {
   }
 
   addActivity(activity: Activity): Activity[] {
-    console.log('ActivitiesService: ', activity);
+    console.log('ActivitiesService: ', 'add id: ', activity.id);
 
     this.activities.push({id: Math.random(), ...activity});
     // TODO: server side addition
@@ -27,9 +27,9 @@ export class ActivitiesService {
   }
 
   editActivity(activity: Activity): Activity[] {
-    const index = this.activities.findIndex(d => d.id === activity.id);
+    const index = this.activities.findIndex(act => act.id === activity.id);
     this.activities[index] = activity;
-    console.log('ActivitiesService: ', activity);
+    console.log('ActivitiesService: ', 'edit id: ', activity.id);
     return this.activities;
   }
 

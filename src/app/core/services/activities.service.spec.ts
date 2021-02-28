@@ -34,12 +34,13 @@ describe('ActivitiesService', () => {
   });
 
   describe('METHOD: addActivity', () => {
-    let fakeActivity: Activity = createFakeActivity();
+    let fakeActivity: Activity;
     When(() => {
       actualResult = serviceUnderTest.addActivity(fakeActivity);
     });
     describe('GIVEN new activity', () => {
       Given(() => {
+        fakeActivity = createFakeActivityToAdd();
         // pass a new array in order not to "pass by reference"
         serviceUnderTest.activities = createFakeActivities();
       });
@@ -49,17 +50,45 @@ describe('ActivitiesService', () => {
         expectedResult = [...createFakeActivities(), addedActivity];
         expect(actualResult).toEqual(expectedResult);
       });
+      Then('Length is increased', () => {
+        expect(actualResult.length).toEqual(createFakeActivities().length + 1);
+      });
+    });
+  });
+
+  describe('METHOD: editActivity', () => {
+    let fakeActivity;
+    When(() => {
+      actualResult = serviceUnderTest.editActivity(fakeActivity);
+    });
+
+    describe('GIVEN an Activity to edit', () => {
+
+      Given(() => {
+        fakeActivity = createFakeActivityToEdit();
+        serviceUnderTest.activities = createFakeActivities();
+      });
+      Then('Activity is edited',() => {
+        expectedResult = createFakeActivities();
+        const index = expectedResult.findIndex(act => act.id === fakeActivity.id);
+        expectedResult[index] = fakeActivity;
+        expect(actualResult).toEqual(expectedResult);
+      });
+      Then('Length is unchanged', () => {
+        expect(actualResult.length).toEqual(createFakeActivities().length);
+      });
     });
   });
 
   describe('METHOD: deleteActivity', () => {
-    let idToDelete: number = createIdToDelete();
+    let idToDelete: number;
     When(() => {
       actualResult = serviceUnderTest.deleteActivity(idToDelete);
     });
     describe('GIVEN id to delete', () => {
 
       Given(() => {
+        idToDelete = createIdToDelete();
         serviceUnderTest.activities = createFakeActivities();
       });
       Then('Activity is deleted',() => {
@@ -68,9 +97,48 @@ describe('ActivitiesService', () => {
         )
         expect(actualResult).toEqual(expectedResult);
       });
+      Then('Length is reduced', () => {
+        expect(actualResult.length).toEqual(createFakeActivities().length - 1);
+      });
     });
   });
 });
+
+// PRE-BUILT TESTS
+describe('(old)ActivitiesService', () => {
+  let service: ActivitiesService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(ActivitiesService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
+
+function createFakeActivityToAdd(): Activity {
+  return {
+    id: 4,
+    date: new Date(2021, 2, 4),
+    type: 'abs',
+    duration: 23,
+  };
+}
+
+function createFakeActivityToEdit(): Activity {
+  return {
+    id: 1,
+    date: new Date(2021, 2, 5),
+    type: 'swimming',
+    duration: 30,
+  };
+}
+
+function createIdToDelete(): number {
+  return 2;
+}
 
 function createFakeActivities(): Activity[] {
   return [
@@ -93,31 +161,4 @@ function createFakeActivities(): Activity[] {
       duration: 35,
     },
   ];
-}
-
-// PRE-BUILT TESTS
-describe('(old)ActivitiesService', () => {
-  let service: ActivitiesService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ActivitiesService);
-  });
-
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
-
-function createFakeActivity(): Activity {
-  return {
-    id: 1,
-    date: new Date(2021, 2, 4),
-    type: 'swimming',
-    duration: 30,
-  };
-}
-
-function createIdToDelete(): number {
-  return 2;
 }
