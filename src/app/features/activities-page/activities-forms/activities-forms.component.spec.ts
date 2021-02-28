@@ -5,6 +5,7 @@ import { ObserverSpy, subscribeSpyTo } from '@hirez_io/observer-spy';
 import { ActivitiesFormsComponent } from './activities-forms.component';
 
 import { FeelingColors, Activity } from 'src/app/_models/activity';
+import { SimpleChange, SimpleChanges } from '@angular/core';
 
 describe('ActivitiesFormsComponent', () => {
   let componentUnderTest: ActivitiesFormsComponent;
@@ -17,23 +18,30 @@ describe('ActivitiesFormsComponent', () => {
     componentUnderTest = TestBed.inject(ActivitiesFormsComponent);
   });
 
-  // describe('METHOD: onChanges', () => {
-  //   let simpleChanges: SimpleChanges;
-  //   When(() => {
-  //      componentUnderTest.ngOnChanges(simpleChanges)
-  //   });
+  describe('METHOD: ngOnChanges', () => {
+    let simpleChanges: SimpleChanges;
+    When(() => {
+       componentUnderTest.ngOnChanges(simpleChanges)
+    });
 
-  //   describe('GIVEN An Input Activity is received', () => {
+    describe('GIVEN an input Activity is received', () => {
+      Given(() => {
+        simpleChanges = { active: new SimpleChange(undefined, createFakeFormData(), false) };
+      });
+      Then('The form is filled with that Activity data',() => {
+         expect(componentUnderTest.activityForm.value).toEqual(createFakeFormData());
+      });
+    });
 
-  //     Given(() => {
-  //       componentUnderTest.activityToEdit = createFakeActivity();
-  //       simpleChanges = new SimpleChanges(null, componentUnderTest.activityToEdit, true);
-  //     });
-  //     Then('The form is filled with that Activity data',() => {
-  //        expect(componentUnderTest.activityForm.value).toEqual(componentUnderTest.activityToEdit);
-  //     });
-  //   });
-  // });
+    describe('GIVEN an input Activity is NOT received (first change)', () => {
+      Given(() => {
+        simpleChanges = { active: new SimpleChange(undefined, undefined, true) };
+      });
+      Then('The form is still empty',() => {
+         expect(componentUnderTest.activityForm.value).toEqual(createFakeEmptyForm());
+      });
+    });
+  });
 
   describe('METHOD onSubmit: output emitActivity', () => {
     let emitActivitySpy: ObserverSpy<any>;
