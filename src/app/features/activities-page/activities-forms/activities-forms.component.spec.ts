@@ -58,6 +58,23 @@ describe('ActivitiesFormsComponent', () => {
     });
   });
 
+  describe('METHOD onReset: output resetForm', () => {
+    let resetFormSpy: jasmine.Spy;
+    When(() => {
+      componentUnderTest.onReset();
+    });
+
+    describe('GIVEN reset form is triggered', () => {
+
+      Given(() => {
+        resetFormSpy = spyOn(componentUnderTest.resetForm, 'emit');
+      });
+      Then('resetForm is emitted',() => {
+        expect(componentUnderTest.resetForm.emit).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('Form validators', () => {
     describe('GIVEN form is completely filled', () => {
       Given(() => {
