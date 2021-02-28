@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { Activity } from 'src/app/_models/activity';
+import { Activity } from 'src/app/_models/activity.type';
 import { ACTIVITIES } from 'src/assets/mock-activities';
 import { ActivitiesService } from './activities.service';
 

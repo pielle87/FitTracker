@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Activity } from 'src/app/_models/activity';
+import { Activity } from 'src/app/_models/activity.type';
 
 import { ActivitiesStatsComponent } from './activities-stats.component';
 

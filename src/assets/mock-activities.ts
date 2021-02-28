@@ -1,4 +1,4 @@
-import { Activity, FeelingColors } from '../app/_models/activity';
+import { Activity, FeelingColors } from '../app/_models/activity.type';
 
 // TODO: delete this once the Db is implemented
 export const ACTIVITIES: Activity[] = [

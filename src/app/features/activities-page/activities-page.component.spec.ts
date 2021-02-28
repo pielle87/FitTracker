@@ -4,7 +4,7 @@ import { provideAutoSpy, Spy } from 'jasmine-auto-spies';
 import { Component, Input } from '@angular/core';
 
 import { ActivitiesPageComponent } from './activities-page.component';
-import { Activity } from 'src/app/_models/activity';
+import { Activity } from 'src/app/_models/activity.type';
 
 describe('ActivitiesPageComponent', () => {
   let componentUnderTest: ActivitiesPageComponent;

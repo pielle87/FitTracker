@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Activity } from 'src/app/_models/activity';
+import { Activity } from 'src/app/_models/activity.type';
 
 @Component({
   selector: 'app-activities-stats',

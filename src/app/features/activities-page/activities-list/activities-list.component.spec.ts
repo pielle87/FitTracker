@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivitiesListComponent } from './activities-list.component';
 
 import { ObserverSpy, subscribeSpyTo } from '@hirez_io/observer-spy';
-import { Activity, FeelingColors } from 'src/app/_models/activity';
+import { Activity, FeelingColors } from 'src/app/_models/activity.type';
 
 describe('ActivitiesListComponent', () => {
   let componentUnderTest: ActivitiesListComponent;

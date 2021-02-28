@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivitiesService} from 'src/app/core/services/activities.service';
 import {LoginService} from 'src/app/core/services/login.service';
-import {Activity} from 'src/app/_models/activity';
+import {Activity} from 'src/app/_models/activity.type';
 
 @Component({
   selector: 'app-activities-page',

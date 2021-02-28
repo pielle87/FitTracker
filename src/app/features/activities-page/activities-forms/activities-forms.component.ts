@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Activity, FeelingColors} from 'src/app/_models/activity';
+import {Activity, FeelingColors} from 'src/app/_models/activity.type';
 
 @Component({
   selector: 'app-activities-forms',
