@@ -118,7 +118,7 @@ describe('(old)ActivitiesPageComponent', () => {
   beforeEach(async () => {
     @Component({ selector: 'app-activities-forms', template: '' })
     class FakeActivitiesFormsComponent {
-      @Input() activities: Activity[];
+      @Input() active: Activity;
     }
     @Component({ selector: 'app-activities-list', template: '' })
     class FakeActivitiesListComponent {
