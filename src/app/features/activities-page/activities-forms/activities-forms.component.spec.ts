@@ -50,7 +50,9 @@ describe('ActivitiesFormsComponent', () => {
         expect(emitActivitySpy.getFirstValue()).toEqual(createFakeFormData());
       });
       Then('Form is reset', () => {
-        expect(componentUnderTest.activityForm.value).toEqual(createFakeEmptyForm());
+        expect(componentUnderTest.activityForm.value).toEqual(
+          createFakeEmptyForm()
+        );
       });
       Then('Form is invalid', () => {
         expect(componentUnderTest.activityForm.valid).toBeFalse();
@@ -59,17 +61,35 @@ describe('ActivitiesFormsComponent', () => {
   });
 
   describe('METHOD onReset: output resetForm', () => {
+    let resetFormSpy: ObserverSpy<any>;
+    When(() => {
+      componentUnderTest.onReset();
+    });
+
+    describe('GIVEN reset form is triggered', () => {
+      Given(() => {
+        resetFormSpy = subscribeSpyTo(componentUnderTest.resetForm);
+      });
+      Then('resetForm is emitted', () => {
+        expect(resetFormSpy.getValuesLength()).toEqual(1);
+      });
+    });
+  });
+
+  /* ************************************************************
+   *  NOTE this is the SAME AS ABOVE but done without the ObserverSpy
+   ************************************************************ */
+  describe('METHOD onReset: output resetForm', () => {
     let resetFormSpy: jasmine.Spy;
     When(() => {
       componentUnderTest.onReset();
     });
 
     describe('GIVEN reset form is triggered', () => {
-
       Given(() => {
         resetFormSpy = spyOn(componentUnderTest.resetForm, 'emit');
       });
-      Then('resetForm is emitted',() => {
+      Then('resetForm is emitted', () => {
         expect(componentUnderTest.resetForm.emit).toHaveBeenCalled();
       });
     });
@@ -136,7 +156,7 @@ describe('ActivitiesFormsComponent', () => {
       });
     });
 
-    describe("GIVEN form is empty", () => {
+    describe('GIVEN form is empty', () => {
       Given(() => {
         componentUnderTest.activityForm.setValue(createFakeEmptyForm());
       });
@@ -159,7 +179,7 @@ describe('ActivitiesFormsComponent', () => {
       imports: [ReactiveFormsModule],
       declarations: [ActivitiesFormsComponent],
     }).compileComponents();
-    formBuilder = new FormBuilder()
+    formBuilder = new FormBuilder();
   });
 
   beforeEach(() => {
@@ -218,4 +238,3 @@ function createFakeEmptyForm(): Partial<Activity> {
     link: null,
   };
 }
-
