@@ -14,13 +14,13 @@ export class ActivitiesFormsComponent implements OnChanges {
   feelingColors = FeelingColors;
 
   activityForm: FormGroup = this.fb.group({
-    date: [''],
-    type: ['', Validators.required],
-    duration: ['', [Validators.required, Validators.pattern('^[1-9][0-9]*$')]],
-    notes: [''],
-    feelingColor: [''],
-    feeling: [''],
-    link: [''],
+    date: [null],
+    type: [null, Validators.required],
+    duration: [null, [Validators.required, Validators.pattern('^[1-9][0-9]*$')]],
+    notes: [null],
+    feelingColor: [null],
+    feeling: [null],
+    link: [null],
   });
 
   constructor(private fb: FormBuilder) {
