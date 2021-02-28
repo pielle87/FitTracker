@@ -5,7 +5,6 @@ import { ObserverSpy, subscribeSpyTo } from '@hirez_io/observer-spy';
 import { ActivitiesFormsComponent } from './activities-forms.component';
 
 import { FeelingColors, Activity } from 'src/app/_models/activity';
-import { SimpleChanges } from '@angular/core';
 
 describe('ActivitiesFormsComponent', () => {
   let componentUnderTest: ActivitiesFormsComponent;
