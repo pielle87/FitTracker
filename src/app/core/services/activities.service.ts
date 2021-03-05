@@ -23,21 +23,23 @@ export class ActivitiesService {
 
     this.activities.push({id: Math.random(), ...activity});
     // TODO: server side addition
-    return this.activities;
+    return [...this.activities];
   }
 
   editActivity(activity: Activity): Activity[] {
     const index = this.activities.findIndex(act => act.id === activity.id);
+    // TODO: server side editing
     this.activities[index] = activity;
     console.log('ActivitiesService: ', 'edit id: ', activity.id);
-    return this.activities;
+    return [...this.activities];
   }
 
   deleteActivity(id: number): Activity[] {
     console.log('ActivitiesService: ', 'delete id: ', id);
     // TODO: server side deletion
-    return (this.activities = this.activities.filter(
+    this.activities = this.activities.filter(
       (activity) => activity.id !== id
-    ));
+    );
+    return [...this.activities];
   }
 }
