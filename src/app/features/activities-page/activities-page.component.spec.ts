@@ -51,15 +51,33 @@ describe('ActivitiesPageComponent', () => {
   });
 
   describe('METHOD: onReceivedActivity', () => {
-    let fakeActivity: Activity = createFakeActivity();
+    let fakeActivity: Activity;
     When(() => {
       componentUnderTest.onReceivedActivity(fakeActivity);
     });
 
-    Then('Add activity to the list', () => {
-      expect(activitiesServiceSpy.addActivity).toHaveBeenCalledWith(
-        fakeActivity
-      );
+    describe('GIVEN no Activity is selected', () => {
+      Given(() => {
+        fakeActivity = createFakeActivity();
+      })
+      Then('Add activity to the list', () => {
+        expect(activitiesServiceSpy.addActivity).toHaveBeenCalledWith(
+          fakeActivity
+        );
+      });
+    });
+
+    describe('GIVEN an Activity to edit is selected', () => {
+      Given(() => {
+        fakeActivity = createFakeActivity();
+        componentUnderTest.selectedActivity = createFakeActivity2();
+      })
+      Then('Add activity to the list', () => {
+        let expectedActivity = {...componentUnderTest.selectedActivity, ...fakeActivity}
+        expect(activitiesServiceSpy.editActivity).toHaveBeenCalledWith(
+          expectedActivity
+        );
+      });
     });
   });
 
@@ -106,6 +124,16 @@ describe('ActivitiesPageComponent', () => {
       Then('Activity to edit is set',() => {
          expect(componentUnderTest.selectedActivity).toEqual(fakeActivity);
       });
+    });
+  });
+
+  describe('METHOD: onResetForm', () => {
+    When(() => {
+      componentUnderTest.onResetForm();
+    });
+
+    Then('Set the selected Activity to null',() => {
+      expect(componentUnderTest.selectedActivity).toEqual(null);
     });
   });
 });
@@ -174,6 +202,15 @@ function createFakeActivity(): Activity {
     date: new Date(2021, 2, 3),
     type: 'swimming',
     duration: 45,
+  }
+}
+
+function createFakeActivity2(): Activity {
+  return {
+    id: 4,
+    date: new Date(2021, 2, 4),
+    type: 'stretching',
+    duration: 30,
   }
 }
 

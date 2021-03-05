@@ -23,14 +23,12 @@ export class ActivitiesPageComponent implements OnInit {
   }
 
   onReceivedActivity(event: Activity): void {
-    // TODO: test all cases
-    // TODO: refactor to remove refences to selectedActivity and activities (also refactor service?)
-    this.activities = this.selectedActivity ?
-      this.activitiesService.editActivity({...this.selectedActivity, ...event}) :
-      this.activitiesService.addActivity(event);
-
+    // TODO: refactor to remove refences to selectedActivity and activities?? (also refactor service?)
     if (this.selectedActivity) {
+      this.activities = this.activitiesService.editActivity({...this.selectedActivity, ...event});
       this.selectedActivity = null;
+    } else {
+      this.activities = this.activitiesService.addActivity(event);
     }
   }
 
