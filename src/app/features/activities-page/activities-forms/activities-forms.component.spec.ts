@@ -46,7 +46,7 @@ describe('ActivitiesFormsComponent', () => {
   describe('METHOD onSubmit: output emitActivity', () => {
     let emitActivitySpy: ObserverSpy<any>;
     When(() => {
-      componentUnderTest.onSubmit(componentUnderTest.activityForm.value);
+      componentUnderTest.onSubmit();
     });
 
     describe('GIVEN form is filled correctly and submitted', () => {
@@ -56,6 +56,26 @@ describe('ActivitiesFormsComponent', () => {
       });
       Then('newActivity is emitted', () => {
         expect(emitActivitySpy.getFirstValue()).toEqual(createFakeFormData());
+      });
+      Then('Form is reset', () => {
+        expect(componentUnderTest.activityForm.value).toEqual(
+          createFakeEmptyForm()
+        );
+      });
+      Then('Form is invalid', () => {
+        expect(componentUnderTest.activityForm.valid).toBeFalse();
+      });
+    });
+
+    describe('GIVEN no \'link\' is provided', () => {
+      Given(() => {
+        emitActivitySpy = subscribeSpyTo(componentUnderTest.emitActivity);
+        componentUnderTest.activityForm.setValue(createFakeFormData());
+        componentUnderTest.activityForm.patchValue({link: ""});
+      });
+      Then('newActivity is emitted', () => {
+        const expectedResult = {...createFakeFormData(), link: null}
+        expect(emitActivitySpy.getFirstValue()).toEqual(expectedResult);
       });
       Then('Form is reset', () => {
         expect(componentUnderTest.activityForm.value).toEqual(
@@ -207,11 +227,11 @@ describe('ActivitiesFormsComponent', () => {
     component.emitActivity.subscribe((act: Activity) =>
       expect(act).toEqual(fakeActivity)
     );
-    component.onSubmit(fakeActivity);
+    component.onSubmit();
   });
 });
 
-function createFakeFormData(): Partial<Activity> {
+function createFakeFormData(): Omit<Activity, 'id'> {
   return {
     date: new Date(2021, 2, 1),
     type: 'stretching',

@@ -1,3 +1,4 @@
+import { SimpleChange, SimpleChanges } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Activity } from 'src/app/_models/activity.type';
 
@@ -15,32 +16,25 @@ describe('ActivitiesStatsComponent', () => {
     actualResult = undefined;
   });
 
-  describe('METHOD: ngOnInit', () => {
-    let expectedResult: number;
-
+  describe('METHOD: ngOnChanges', () => {
+    let simpleChanges: SimpleChanges;
+    let expectedTotalDuration: number;
+    let expectedAvgDuration: number;
     When(() => {
-      componentUnderTest.ngOnInit();
+       componentUnderTest.ngOnChanges(simpleChanges)
     });
 
-    describe('GIVEN activities THEN total duration is correct', () => {
+    describe('GIVEN activities Input changes', () => {
       Given(() => {
-        componentUnderTest.activities = createFakeActivities();
-        expectedResult = 140;
+        simpleChanges = { activities: new SimpleChange(undefined, createFakeActivities(), false) };
+        expectedTotalDuration = 140;
+        expectedAvgDuration = 70;
       });
-      Then('total duration', () => {
-        actualResult = componentUnderTest.totalDuration;
-        expect(actualResult).toEqual(expectedResult);
+      Then('Total duration is computed',() => {
+        expect(componentUnderTest.totalDuration).toEqual(expectedTotalDuration);
       });
-    });
-
-    describe('GIVEN activities THEN average duration is correct', () => {
-      Given(() => {
-        componentUnderTest.activities = createFakeActivities();
-        expectedResult = 70;
-      });
-      Then('average duration', () => {
-        actualResult = componentUnderTest.avgDuration;
-        expect(actualResult).toEqual(expectedResult);
+      Then('Average duration is computed',() => {
+        expect(componentUnderTest.avgDuration).toEqual(expectedAvgDuration);
       });
     });
   });

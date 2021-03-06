@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Activity } from 'src/app/_models/activity.type';
 
 @Component({
@@ -6,18 +6,19 @@ import { Activity } from 'src/app/_models/activity.type';
   templateUrl: './activities-stats.component.html',
   styleUrls: ['./activities-stats.component.css']
 })
-export class ActivitiesStatsComponent implements OnInit {
+export class ActivitiesStatsComponent implements OnChanges {
   @Input() activities: Activity[];
   totalDuration: number
   avgDuration: number
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.totalDuration = this.activities.reduce((total, activity) => total += activity.duration, 0);
-    this.avgDuration = this.totalDuration / this.activities.length;
-  }
+  ngOnChanges(changes: SimpleChanges): void {
+    const activitiesInput: Activity[] = changes.activities.currentValue;
+    console.log('ActivitiesStatsComponent: ', activitiesInput);
 
-  // TODO: ngOnchanges (stats are not refreshed)
+    this.totalDuration = activitiesInput.reduce((total: number, activity: Activity) => total += activity.duration, 0);
+    this.avgDuration = this.totalDuration / activitiesInput.length;
+  }
 
 }

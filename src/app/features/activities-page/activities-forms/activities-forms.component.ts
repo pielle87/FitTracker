@@ -9,7 +9,7 @@ import {Activity, FeelingColors} from 'src/app/_models/activity.type';
 })
 export class ActivitiesFormsComponent implements OnChanges {
   @Input() active: Activity;
-  @Output() emitActivity: EventEmitter<Activity> = new EventEmitter<Activity>();
+  @Output() emitActivity: EventEmitter<Omit<Activity, 'id'>> = new EventEmitter<Omit<Activity, 'id'>>();
   @Output() resetForm: EventEmitter<any> = new EventEmitter<any>();
   feelingColors = FeelingColors;
 
@@ -35,9 +35,18 @@ export class ActivitiesFormsComponent implements OnChanges {
     }
   }
 
-  onSubmit(activity: Activity): void {
+  onSubmit(): void {
+    // TODO: maybe there is a simpler way to do this with destructuring
+    const date: Date = new Date(this.activityForm.get('date').value);
+    const type: string = this.activityForm.get('type').value
+    const duration: number = parseInt(this.activityForm.get('duration').value);
+    const notes: string = this.activityForm.get('notes').value
+    const feelingColor: FeelingColors = this.activityForm.get('feelingColor').value
+    const feeling: string = this.activityForm.get('feeling').value
+    const link: URL = this.activityForm.get('link').value ? new URL(this.activityForm.get('link').value) : null;
+
     this.activityForm.reset();
-    this.emitActivity.emit(activity);
+    this.emitActivity.emit({ date, type, duration, notes, feelingColor, feeling, link });
   }
 
   onReset(): void {
