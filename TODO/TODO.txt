@@ -1,0 +1,7 @@
+Backend
+	add a json-server
+	switch to a firebase BE
+
+Stats
+	add some graphics of activities type (e.g. "this many hours of running")
+	add streaks: current, top, ranking
